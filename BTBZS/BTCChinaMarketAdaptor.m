@@ -7,8 +7,12 @@
 //
 
 #import "BTCChinaMarketAdaptor.h"
+#import "AFNetworking.h"
+#import "MarketModels.h"
 
-static NSString* url = @"https://www.btcc.com/";
+static NSString* mainPageUri    = @"https://www.btcc.com/";
+static NSString* s_queryBtc     = @"https://data.btcchina.com/data/ticker?market=btccny";
+static NSString* s_queryLtc     = @"https://data.btcchina.com/data/ticker?market=ltccny";
 
 @implementation BTCChinaMarketAdaptor
 
@@ -30,14 +34,47 @@ static NSString* url = @"https://www.btcc.com/";
  * Override
  */
 - (NSString*)marketMainPageUri {
-    return url;
+    return mainPageUri;
 }
 
 /*
  * Override
  */
-- (void)queryTradeInfo:(VitualCoinEnum)coinType {
-    NSLog(@"Now send request to '%@' to query new tradeInfo", url);
+- (void)queryTradeInfo:(VitualCoinEnum)coinType saveOn:(TradeInfo*)tradeInfo withCallback:(StandardCallback)cb {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString* uri = nil;
+    if (kVitualCoinEnum_BitCoin == coinType) {
+        // 请求比特币行情
+        uri = s_queryBtc;
+    } else {
+        // 请求莱特币行情
+        uri = s_queryLtc;
+    }
+    
+    [manager GET:uri parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary* dic = [responseObject objectForKey:@"ticker"];
+            if ([dic isKindOfClass:[NSDictionary class]]) {
+                tradeInfo.highest    = [NSNumber numberWithFloat:[[dic objectForKey:@"high"] floatValue]];
+                tradeInfo.lowest     = [NSNumber numberWithFloat:[[dic objectForKey:@"low"] floatValue]];
+                tradeInfo.firstBuy   = [NSNumber numberWithFloat:[[dic objectForKey:@"buy"] floatValue]];
+                tradeInfo.firstSell  = [NSNumber numberWithFloat:[[dic objectForKey:@"sell"] floatValue]];
+                tradeInfo.lastPrice  = [NSNumber numberWithFloat:[[dic objectForKey:@"last"] floatValue]];
+                tradeInfo.volume     = [NSNumber numberWithFloat:[[dic objectForKey:@"vol"] floatValue]];
+                tradeInfo.updateTime = [dic objectForKey:@"date"];
+                tradeInfo.averate    = [NSNumber numberWithFloat:[[dic objectForKey:@"vwap"] floatValue]];
+                tradeInfo.preClose   = [NSNumber numberWithFloat:[[dic objectForKey:@"prev_close"] floatValue]];
+                tradeInfo.open       = [NSNumber numberWithFloat:[[dic objectForKey:@"open"] floatValue]];
+            }
+        }
+        
+        CALL_STANDARD_CB(cb, nil, tradeInfo);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        CALL_STANDARD_CB(cb, error, nil);
+    }];
 }
 
 @end

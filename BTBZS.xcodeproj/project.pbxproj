@@ -10,6 +10,7 @@
 		040A6DD01BFC8A9B00F4CCC0 /* MarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A6DCF1BFC8A9B00F4CCC0 /* MarketViewController.m */; };
 		041C8C221BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C211BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m */; };
 		041C8C251C036533000AFE7B /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C241C036533000AFE7B /* Util.m */; };
+		041C8C6F1C09EA37000AFE7B /* MarketModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C6E1C09EA37000AFE7B /* MarketModels.m */; };
 		042A60B41BF7882A0022381C /* MarketDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60B31BF7882A0022381C /* MarketDataService.m */; };
 		042A60BB1BF78C440022381C /* OKCoinMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BA1BF78C440022381C /* OKCoinMarketAdaptor.m */; };
 		042A60BE1BF78C720022381C /* BTCChinaMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */; };
@@ -51,6 +52,8 @@
 		041C8C231C036533000AFE7B /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		041C8C241C036533000AFE7B /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		041C8C6A1C099130000AFE7B /* MarketAdaptors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketAdaptors.h; sourceTree = "<group>"; };
+		041C8C6D1C09EA37000AFE7B /* MarketModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketModels.h; sourceTree = "<group>"; };
+		041C8C6E1C09EA37000AFE7B /* MarketModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketModels.m; sourceTree = "<group>"; };
 		042A60B21BF7882A0022381C /* MarketDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketDataService.h; sourceTree = "<group>"; };
 		042A60B31BF7882A0022381C /* MarketDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketDataService.m; sourceTree = "<group>"; };
 		042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdaptorProtocol.h; sourceTree = "<group>"; };
@@ -126,11 +129,13 @@
 			children = (
 				042A60B21BF7882A0022381C /* MarketDataService.h */,
 				042A60B31BF7882A0022381C /* MarketDataService.m */,
+				041C8C6D1C09EA37000AFE7B /* MarketModels.h */,
+				041C8C6E1C09EA37000AFE7B /* MarketModels.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
 		};
-		042A60B51BF78A1B0022381C /* Database */ = {
+		042A60B51BF78A1B0022381C /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */,
@@ -142,7 +147,7 @@
 				042A60C41BF866930022381C /* MarketAdaptorFactory.m */,
 				041C8C6A1C099130000AFE7B /* MarketAdaptors.h */,
 			);
-			name = Database;
+			name = Network;
 			sourceTree = "<group>";
 		};
 		042A60BF1BF78FAD0022381C /* Base */ = {
@@ -193,7 +198,7 @@
 			children = (
 				042A60CC1BFA0AB60022381C /* Views */,
 				042A60BF1BF78FAD0022381C /* Base */,
-				042A60B51BF78A1B0022381C /* Database */,
+				042A60B51BF78A1B0022381C /* Network */,
 				042A60B11BF787CC0022381C /* Models */,
 				042A60B01BF787780022381C /* Controllers */,
 				04CA5F301BF58C1D00FF7E75 /* AppDelegate.h */,
@@ -425,6 +430,7 @@
 				041C8C221BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m in Sources */,
 				042A60BB1BF78C440022381C /* OKCoinMarketAdaptor.m in Sources */,
 				041C8C251C036533000AFE7B /* Util.m in Sources */,
+				041C8C6F1C09EA37000AFE7B /* MarketModels.m in Sources */,
 				040A6DD01BFC8A9B00F4CCC0 /* MarketViewController.m in Sources */,
 				042A60B41BF7882A0022381C /* MarketDataService.m in Sources */,
 				04CA5F2F1BF58C1D00FF7E75 /* main.m in Sources */,

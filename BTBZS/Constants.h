@@ -20,7 +20,7 @@
 #define CALL_STANDARD_CB(c,e,r)     do{ if(c){c(e,r);} } while(NO)
 
 // 标准回调定义
-typedef void (^StandardCallback) (NSError* error, NSDictionary* result);
+typedef void (^StandardCallback) (NSError* error, id result);
 
 /*
  * 市场枚举

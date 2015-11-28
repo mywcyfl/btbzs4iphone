@@ -150,7 +150,8 @@
 - (void)refreshTableView {
     [MarketDataService refreshPageData:(MarketPageIndexEnum)_currentTableView.tag
                           withCallback:^(NSError *error, NSDictionary *result) {
-        [_currentTableView.mj_header endRefreshing];
+                              [_currentTableView.mj_header endRefreshing];
+                              [_currentTableView reloadData];
     }];
 }
 

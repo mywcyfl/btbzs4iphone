@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Constants.h"
+#import "MarketModels.h"
 
 @protocol BaseAdaptorProtocol <NSObject>
 
@@ -25,6 +26,8 @@
 
 // 查询交易信息
 @required
-- (void)queryTradeInfo:(VitualCoinEnum)coinType;
+- (void)queryTradeInfo:(VitualCoinEnum)coinType
+                saveOn:(TradeInfo*)tradeInfo
+          withCallback:(StandardCallback)cb;
 
 @end
