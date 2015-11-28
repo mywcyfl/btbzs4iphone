@@ -7,8 +7,7 @@
 //
 
 #import "MarketAdaptorFactory.h"
-#import "OKCoinMarketAdaptor.h"
-#import "BTCChinaMarketAdaptor.h"
+#import "MarketAdaptors.h"
 
 @interface MarketAdaptorFactory()
 @property(strong, nonatomic)NSDictionary* adaptors;
@@ -23,8 +22,8 @@
     dispatch_once(&token, ^{
         instance = [[MarketAdaptorFactory alloc] init];
         instance.adaptors = @{
-                              @([OKCoinMarketAdaptor MarketIdentify])   : [OKCoinMarketAdaptor class],
-                              @([BTCChinaMarketAdaptor MarketIdentify]) : [BTCChinaMarketAdaptor class]
+                              @([OKCoinMarketAdaptor MarketIdentify])   : [[OKCoinMarketAdaptor alloc] init],
+                              @([BTCChinaMarketAdaptor MarketIdentify]) : [[BTCChinaMarketAdaptor alloc] init]
                               };
     });
     
@@ -39,7 +38,7 @@
     return [MarketAdaptorFactory sharedInstance].adaptors;
 }
 
-+(id<BaseAdaptorProtocol>)GetAdaptorById:(MarketEnum)marketId {
++(id<BaseAdaptorProtocol>)GetAdaptorById:(MarketAdaptorEnum)marketId {
     NSDictionary* adaptors = [MarketAdaptorFactory sharedInstance].adaptors;
     return [adaptors objectForKey:@(marketId)];
 }

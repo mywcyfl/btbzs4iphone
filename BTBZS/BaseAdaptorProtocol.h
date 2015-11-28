@@ -13,14 +13,18 @@
 
 // 市场枚举值
 @required
-+ (MarketEnum)MarketIdentify;
++ (MarketAdaptorEnum)MarketIdentify;
 
 // 市场名
 @required
-+ (NSString*)marketName;
+- (NSString*)marketName;
 
 // 市场主页地址
 @required
-+ (NSString*)marketMainPageUri;
+- (NSString*)marketMainPageUri;
+
+// 查询交易信息
+@required
+- (void)queryTradeInfo:(VitualCoinEnum)coinType;
 
 @end

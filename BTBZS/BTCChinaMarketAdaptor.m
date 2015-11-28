@@ -8,27 +8,36 @@
 
 #import "BTCChinaMarketAdaptor.h"
 
+static NSString* url = @"https://www.btcc.com/";
+
 @implementation BTCChinaMarketAdaptor
 
 /*
  * Override
  */
-+ (MarketEnum)MarketIdentify {
-    return kBTCCMarket;
++ (MarketAdaptorEnum)MarketIdentify {
+    return kBTCCMarketAdaptor;
 }
 
 /*
  * Override
  */
-+ (NSString*)marketName {
+- (NSString*)marketName {
     return @"BTCC(比特币中国)";
 }
 
 /*
  * Override
  */
-+ (NSString*)marketMainPageUri {
-    return @"https://www.btcc.com/";
+- (NSString*)marketMainPageUri {
+    return url;
+}
+
+/*
+ * Override
+ */
+- (void)queryTradeInfo:(VitualCoinEnum)coinType {
+    NSLog(@"Now send request to '%@' to query new tradeInfo", url);
 }
 
 @end

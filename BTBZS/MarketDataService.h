@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "ServiceProtocol.h"
 #import "MarketTableViewCell.h"
 #import "Constants.h"
@@ -29,5 +28,11 @@
 + (UITableViewCell*)initCellValue:(MarketTableViewCell*)cell
                     withPageIndex:(MarketPageIndexEnum)pageIndex
                     withCellIndex:(NSInteger)cellIndex;
+
+/*
+ * 刷新数据
+ */
++ (void)refreshPageData:(MarketPageIndexEnum)pageIndex
+           withCallback:(StandardCallback) cb;
 
 @end

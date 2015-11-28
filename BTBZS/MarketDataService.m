@@ -7,14 +7,18 @@
 //
 
 #import "MarketDataService.h"
+#import "BaseAdaptorProtocol.h"
+#import "MarketAdaptorFactory.h"
 
 #define MDS_FAVORITES           @"favorites"
 #define MDS_BITCOINMARKETS      @"BitcoinMarkets"
 #define MDS_LITECOINMARKETS     @"LiteCoinMarkets"
 #define MDS_OTHERCOINMARKETS    @"OthersCoinMarkets"
 
-#define MDS_MARKET_NAME         @"name"
-#define MDS_MARKET_CURRENCY     @"currency"
+#define MDS_MARKET_NAME         @"name"         // 名字
+#define MDS_MARKET_CURRENCY     @"currency"     // 现实币种
+#define MDS_MARKET_ADAPTOR      @"adaptor"      // 适配器
+#define MDS_MARKET_COIN_TYPE    @"coinType"     // 虚拟币币种
 
 @interface MarketDataService ()
 @property(strong, nonatomic) NSDictionary* runtimeContext;
@@ -28,43 +32,78 @@
     dispatch_once(&token, ^{
         instance = [[MarketDataService alloc] init];
         instance.runtimeContext = @{MDS_FAVORITES       :@[],
-                                    MDS_BITCOINMARKETS  :@[@{MDS_MARKET_NAME:@"OKCoin国际",
-                                                             MDS_MARKET_CURRENCY:@(2)},
-                                                           @{MDS_MARKET_NAME:@"OKCoin中国",
-                                                             MDS_MARKET_CURRENCY:@(1)},
-                                                           @{MDS_MARKET_NAME:@"OKCoin期货-本周",
-                                                             MDS_MARKET_CURRENCY:@(2)},
+                                    MDS_BITCOINMARKETS  :@[@{MDS_MARKET_NAME        :@"OKCoin国际",
+                                                             MDS_MARKET_CURRENCY    :@(2),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin)
+                                                             },
+                                                           @{MDS_MARKET_NAME        :@"OKCoin中国",
+                                                             MDS_MARKET_CURRENCY    :@(1),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin)
+                                                             },
+                                                           @{MDS_MARKET_NAME        :@"OKCoin期货-本周",
+                                                             MDS_MARKET_CURRENCY    :@(2),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"BTCTrade",
-                                                             MDS_MARKET_CURRENCY:@(1)},
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"火币网",
-                                                             MDS_MARKET_CURRENCY:@(1)},
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"796期货",
-                                                             MDS_MARKET_CURRENCY:@(2)},
+                                                             MDS_MARKET_CURRENCY:@(2)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"比特时代",
-                                                             MDS_MARKET_CURRENCY:@(1)},
-                                                           @{MDS_MARKET_NAME:@"BTCC（比特币中国）",
-                                                             MDS_MARKET_CURRENCY:@(1)}],
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             },
+                                                           @{MDS_MARKET_NAME        :@"BTCC（比特币中国）",
+                                                             MDS_MARKET_CURRENCY    :@(1),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kBTCCMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin)
+                                                             }
+                                                           ],
                                     
-                                    MDS_LITECOINMARKETS :@[@{MDS_MARKET_NAME:@"OKCoin国际",
-                                                             MDS_MARKET_CURRENCY:@(2)},
-                                                           @{MDS_MARKET_NAME:@"OKCoin中国",
-                                                             MDS_MARKET_CURRENCY:@(1)},
-                                                           @{MDS_MARKET_NAME:@"OKCoin期货-本周",
-                                                             MDS_MARKET_CURRENCY:@(2)},
+                                    MDS_LITECOINMARKETS :@[@{MDS_MARKET_NAME        :@"OKCoin国际",
+                                                             MDS_MARKET_CURRENCY    :@(2),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin)
+                                                             },
+                                                           @{MDS_MARKET_NAME        :@"OKCoin中国",
+                                                             MDS_MARKET_CURRENCY    :@(1),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin)
+                                                             },
+                                                           @{MDS_MARKET_NAME        :@"OKCoin期货-本周",
+                                                             MDS_MARKET_CURRENCY    :@(2),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"BTCTrade",
-                                                             MDS_MARKET_CURRENCY:@(1)},
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"聚币网",
-                                                             MDS_MARKET_CURRENCY:@(1)},
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"火币网",
-                                                             MDS_MARKET_CURRENCY:@(1)},
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"796期货",
-                                                             MDS_MARKET_CURRENCY:@(2)},
+                                                             MDS_MARKET_CURRENCY:@(2)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"比特时代",
-                                                             MDS_MARKET_CURRENCY:@(1)},
-                                                           @{MDS_MARKET_NAME:@"BTCC（比特币中国）",
-                                                             MDS_MARKET_CURRENCY:@(2)},
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             },
+                                                           @{MDS_MARKET_NAME        :@"BTCC（比特币中国）",
+                                                             MDS_MARKET_CURRENCY    :@(2),
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kBTCCMarketAdaptor],
+                                                             MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin)
+                                                             },
                                                            @{MDS_MARKET_NAME:@"中国比特币",
-                                                             MDS_MARKET_CURRENCY:@(1)}],
+                                                             MDS_MARKET_CURRENCY:@(1)
+                                                             }],
                                     MDS_OTHERCOINMARKETS:@[]};
     });
     
@@ -102,6 +141,31 @@
     return cell;
 }
 
++ (void)refreshPageData:(MarketPageIndexEnum)pageIndex
+           withCallback:(StandardCallback) cb {
+    NSString* pageStr   = [self pageIndexToStr:pageIndex];
+    NSArray* arr        = [[MarketDataService sharedInstance].runtimeContext objectForKey:pageStr];
+    
+    for (NSDictionary* dic in arr) {
+        id<BaseAdaptorProtocol> adaptor = [dic objectForKey:MDS_MARKET_ADAPTOR];
+        if (![adaptor conformsToProtocol:@protocol(BaseAdaptorProtocol)]) {
+            continue;
+        }
+        
+        VitualCoinEnum coinType = (VitualCoinEnum)[[dic objectForKey:MDS_MARKET_COIN_TYPE] intValue];
+        if ([adaptor respondsToSelector:@selector(queryTradeInfo:)]) {
+            [adaptor queryTradeInfo:coinType];
+        }
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CALL_STANDARD_CB(cb, nil, nil);
+    });
+}
+
+
+#pragma -
+#pragma mark 内部辅助函数
 + (NSString*)CurrencyEnumToStr:(CurrencyEnum)e {
     if (kCurrencyEnum_RMB == e) {
         return @"RMB";

@@ -139,19 +139,19 @@
  * 转换到当前被选中的tableView
  */
 - (void)changeToCurrentTableView {
-    // 将scrollView的高度改为当前tableView的高度
-    // _scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width,  _currentTableView.contentSize.height);
     
     // 暂时直接reload
     [_currentTableView reloadData];
 }
 
+/*
+ * 下拉刷新
+ */
 - (void)refreshTableView {
-    // 模拟延迟加载数据，因此2秒后才调用（真实开发中，可以移除这段gcd代码）
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 结束刷新
+    [MarketDataService refreshPageData:(MarketPageIndexEnum)_currentTableView.tag
+                          withCallback:^(NSError *error, NSDictionary *result) {
         [_currentTableView.mj_header endRefreshing];
-    });
+    }];
 }
 
 @end

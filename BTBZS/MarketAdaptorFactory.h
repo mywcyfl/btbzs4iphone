@@ -20,6 +20,6 @@
 /*
  * 获得指定的Adaptor
  */
-+(id<BaseAdaptorProtocol>)GetAdaptorById:(MarketEnum)marketId;
++(id<BaseAdaptorProtocol>)GetAdaptorById:(MarketAdaptorEnum)marketId;
 
 @end

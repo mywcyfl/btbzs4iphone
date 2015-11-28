@@ -6,18 +6,33 @@
 //  Copyright © 2015年 btbzs. All rights reserved.
 //
 
-#pragma once
+#import <Foundation/Foundation.h>
+
+// 错误Domain
+#define BTBZS_ERROR_DOMAIN          @"BTBZS Error"
+
+// 标准错误封装
+#define BTBZS_ERROR(C, M)           [NSError errorWithDomain:BTBZS_ERROR_DOMAIN \
+                                                        code:C \
+                                                    userInfo:@{@"errorMessage":M}]
+
+// 安全调用回调
+#define CALL_STANDARD_CB(c,e,r)     do{ if(c){c(e,r);} } while(NO)
+
+// 标准回调定义
+typedef void (^StandardCallback) (NSError* error, NSDictionary* result);
 
 /*
  * 市场枚举
  */
 typedef enum {
-    kOKCoinMarket = 0,  // OKCoin
-    kBTCCMarket = 1     // BTCChina
-}MarketEnum;
+    kNoneMarketAdaptor      = 0,
+    kOKCoinMarketAdaptor    = 1,    // OKCoin
+    kBTCCMarketAdaptor      = 2     // BTCChina
+}MarketAdaptorEnum;
 
 /*
- * 币种枚举
+ * 现实货币币种枚举
  */
 typedef enum {
     kCurrencyEnum_RMB = 1,  // 人民币
@@ -26,7 +41,17 @@ typedef enum {
 
 
 /*
- * 市场页面枚举
+ * 现实货币币种枚举
+ */
+typedef enum {
+    kVitualCoinEnum_BitCoin         = 1,    // 比特币
+    kVitualCoinEnum_LiteCoin        = 2,    // 莱特币
+    kVitualCoinEnum_InfinityCoin    = 3     // 无限币
+}VitualCoinEnum;
+
+
+/*
+ * 行情页TableView枚举
  */
 typedef enum {
     kMarketPageIndex_FavoritesMarkets  = 0,   // 自选

@@ -8,27 +8,36 @@
 
 #import "OKCoinMarketAdaptor.h"
 
+static NSString* url = @"https://www.okcoin.cn/";
+
 @implementation OKCoinMarketAdaptor
 
 /*
  * Override
  */
-+ (MarketEnum)MarketIdentify {
-    return kOKCoinMarket;
++ (MarketAdaptorEnum)MarketIdentify {
+    return kOKCoinMarketAdaptor;
 }
 
 /*
  * Override
  */
-+ (NSString*)marketName {
+- (NSString*)marketName {
     return @"OKCoin";
 }
 
 /*
  * Override
  */
-+ (NSString*)marketMainPageUri {
-    return @"https://www.okcoin.cn/";
+- (NSString*)marketMainPageUri {
+    return url;
+}
+
+/*
+ * Override
+ */
+- (void)queryTradeInfo:(VitualCoinEnum)coinType {
+    NSLog(@"Now send request to '%@' to query new tradeInfo", url);
 }
 
 @end

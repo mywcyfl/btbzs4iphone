@@ -50,6 +50,7 @@
 		041C8C211BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ScrollViewIndicator.m"; sourceTree = "<group>"; };
 		041C8C231C036533000AFE7B /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		041C8C241C036533000AFE7B /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		041C8C6A1C099130000AFE7B /* MarketAdaptors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketAdaptors.h; sourceTree = "<group>"; };
 		042A60B21BF7882A0022381C /* MarketDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketDataService.h; sourceTree = "<group>"; };
 		042A60B31BF7882A0022381C /* MarketDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketDataService.m; sourceTree = "<group>"; };
 		042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdaptorProtocol.h; sourceTree = "<group>"; };
@@ -139,6 +140,7 @@
 				042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */,
 				042A60C31BF866930022381C /* MarketAdaptorFactory.h */,
 				042A60C41BF866930022381C /* MarketAdaptorFactory.m */,
+				041C8C6A1C099130000AFE7B /* MarketAdaptors.h */,
 			);
 			name = Database;
 			sourceTree = "<group>";
