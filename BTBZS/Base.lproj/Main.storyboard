@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BeR-xw-iPL">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <scenes>
+        <!--资讯-->
+        <scene sceneID="UfX-yp-X3i">
+            <objects>
+                <viewController id="Hzi-oh-Vhm" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="G1d-R8-vXZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="brt-fL-O9C"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jSA-Rl-6aG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" tag="3" title="资讯" image="资讯" id="Hdn-yc-dtA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yQ9-us-a7O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="213" y="1147.9999999999998"/>
+        </scene>
+        <!--设置-->
+        <scene sceneID="dcq-70-PTX">
+            <objects>
+                <viewController id="zAd-SA-OdW" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AgE-QO-fsT"/>
+                        <viewControllerLayoutGuide type="bottom" id="2te-IX-FEa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aq6-CD-wNh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="设置" image="设置" id="JnV-Lo-L86"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RQ8-dc-feR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="213" y="1854.9999999999998"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="wek-So-QlK">
+            <objects>
+                <tabBarController id="BeR-xw-iPL" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="lLU-Ef-UVg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="jTB-Jd-ECK" kind="relationship" relationship="viewControllers" id="vsW-X2-UFG"/>
+                        <segue destination="LWt-XK-w4h" kind="relationship" relationship="viewControllers" id="4Pz-uN-meI"/>
+                        <segue destination="Hzi-oh-Vhm" kind="relationship" relationship="viewControllers" id="CQs-5y-kdY"/>
+                        <segue destination="zAd-SA-OdW" kind="relationship" relationship="viewControllers" id="CHA-34-Znq"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U49-q0-f4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-327" y="58"/>
+        </scene>
+        <!--工具-->
+        <scene sceneID="Xjx-qf-AVd">
+            <objects>
+                <tableViewController id="LWt-XK-w4h" customClass="MarketTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="GVl-N1-Wm2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8km-Ay-HWJ">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8km-Ay-HWJ" id="WHn-lj-KqI">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="LWt-XK-w4h" id="4TL-5R-0Nx"/>
+                            <outlet property="delegate" destination="LWt-XK-w4h" id="riR-sf-4Y8"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="工具" image="工具" id="2Jn-YS-mCa"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rl5-lt-1sD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="232" y="167"/>
+        </scene>
+        <!--行情-->
+        <scene sceneID="Vp0-W4-4dl">
+            <objects>
+                <navigationController id="jTB-Jd-ECK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="行情" image="行情" id="MvX-lJ-WNr"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xlw-E8-Flu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Db3-Zk-v6O" kind="relationship" relationship="rootViewController" id="eMV-7x-bzI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SEu-78-nAs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="39" y="-465.99999999999994"/>
+        </scene>
+        <!--行情-->
+        <scene sceneID="aOl-zc-e5y">
+            <objects>
+                <viewController id="Db3-Zk-v6O" customClass="MarketViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oC3-1N-vxr"/>
+                        <viewControllerLayoutGuide type="bottom" id="hsb-CL-quu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="K6z-iR-quM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aNC-kz-oIy">
+                                <rect key="frame" x="0.0" y="64" width="320" height="29"/>
+                                <segments>
+                                    <segment title="自选"/>
+                                    <segment title="比特币"/>
+                                    <segment title="莱特币"/>
+                                    <segment title="其他币"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onSegmentValueChanged:" destination="Db3-Zk-v6O" eventType="valueChanged" id="J9Y-Qk-lH0"/>
+                                </connections>
+                            </segmentedControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seO-pj-PoN">
+                                <rect key="frame" x="0.0" y="93" width="320" height="426"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Db3-Zk-v6O" id="px8-0u-Lld"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="seO-pj-PoN" firstAttribute="leading" secondItem="K6z-iR-quM" secondAttribute="leading" id="7IO-FH-hbm"/>
+                            <constraint firstAttribute="trailing" secondItem="aNC-kz-oIy" secondAttribute="trailing" id="CLX-CY-gZQ"/>
+                            <constraint firstItem="aNC-kz-oIy" firstAttribute="leading" secondItem="K6z-iR-quM" secondAttribute="leading" id="Ejd-xA-lgE"/>
+                            <constraint firstItem="hsb-CL-quu" firstAttribute="top" secondItem="seO-pj-PoN" secondAttribute="bottom" id="bZt-9q-4RY"/>
+                            <constraint firstItem="seO-pj-PoN" firstAttribute="top" secondItem="aNC-kz-oIy" secondAttribute="bottom" constant="1" id="nfQ-XK-wfX"/>
+                            <constraint firstItem="aNC-kz-oIy" firstAttribute="top" secondItem="oC3-1N-vxr" secondAttribute="bottom" id="qol-vj-ip9"/>
+                            <constraint firstAttribute="trailing" secondItem="seO-pj-PoN" secondAttribute="trailing" id="zQE-7M-8yA"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="行情" image="行情" id="pA7-KV-OfG"/>
+                    <navigationItem key="navigationItem" title="行情" id="XKL-aw-cui"/>
+                    <connections>
+                        <outlet property="scrollView" destination="seO-pj-PoN" id="xBG-uE-rfn"/>
+                        <outlet property="segmentedController" destination="aNC-kz-oIy" id="22V-eT-D2m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lY5-96-Kss" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="464" y="-466.70666666666665"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="工具" width="30" height="30"/>
+        <image name="行情" width="30" height="30"/>
+        <image name="设置" width="30" height="30"/>
+        <image name="资讯" width="30" height="30"/>
+    </resources>
+</document>

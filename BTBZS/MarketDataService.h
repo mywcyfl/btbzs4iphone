@@ -1,0 +1,33 @@
+//
+//  MarketDataService.h
+//  BTBZS
+//
+//  Created by wcyfl on 15/11/14.
+//  Copyright © 2015年 btbzs. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "ServiceProtocol.h"
+#import "MarketTableViewCell.h"
+#import "Constants.h"
+
+/*
+ * 行情数据源
+ */
+@interface MarketDataService : NSObject<ServiceProtocol>
+
+/*
+ * 获得市场数量
+ */
++ (NSInteger)CountOfMarket:(MarketPageIndexEnum)pageIndex;
+
+
+/*
+ * 初始化cell
+ */
++ (UITableViewCell*)initCellValue:(MarketTableViewCell*)cell
+                    withPageIndex:(MarketPageIndexEnum)pageIndex
+                    withCellIndex:(NSInteger)cellIndex;
+
+@end
