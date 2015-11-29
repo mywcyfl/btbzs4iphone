@@ -36,19 +36,19 @@
         instance.runtimeContext = @{MDS_FAVORITES       :@[],
                                     MDS_BITCOINMARKETS  :@[@{MDS_MARKET_NAME        :@"OKCoin国际",
                                                              MDS_MARKET_CURRENCY    :@(2),
-                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             // MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
                                                              MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin),
                                                              MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
                                                              },
                                                            @{MDS_MARKET_NAME        :@"OKCoin中国",
                                                              MDS_MARKET_CURRENCY    :@(1),
-                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
                                                              MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin),
                                                              MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
                                                              },
                                                            @{MDS_MARKET_NAME        :@"OKCoin期货-本周",
                                                              MDS_MARKET_CURRENCY    :@(2),
-                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             // MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
                                                              MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin),
                                                              MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
                                                              },
@@ -78,19 +78,19 @@
                                     
                                     MDS_LITECOINMARKETS :@[@{MDS_MARKET_NAME        :@"OKCoin国际",
                                                              MDS_MARKET_CURRENCY    :@(2),
-                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             // MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
                                                              MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin),
                                                              MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
                                                              },
                                                            @{MDS_MARKET_NAME        :@"OKCoin中国",
                                                              MDS_MARKET_CURRENCY    :@(1),
-                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
                                                              MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin),
                                                              MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
                                                              },
                                                            @{MDS_MARKET_NAME        :@"OKCoin期货-本周",
                                                              MDS_MARKET_CURRENCY    :@(2),
-                                                             MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinMarketAdaptor],
+                                                             // MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
                                                              MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin),
                                                              MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
                                                              },

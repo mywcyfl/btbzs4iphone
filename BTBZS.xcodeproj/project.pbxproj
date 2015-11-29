@@ -12,7 +12,7 @@
 		041C8C251C036533000AFE7B /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C241C036533000AFE7B /* Util.m */; };
 		041C8C6F1C09EA37000AFE7B /* MarketModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C6E1C09EA37000AFE7B /* MarketModels.m */; };
 		042A60B41BF7882A0022381C /* MarketDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60B31BF7882A0022381C /* MarketDataService.m */; };
-		042A60BB1BF78C440022381C /* OKCoinMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BA1BF78C440022381C /* OKCoinMarketAdaptor.m */; };
+		042A60BB1BF78C440022381C /* OKCoinCNMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BA1BF78C440022381C /* OKCoinCNMarketAdaptor.m */; };
 		042A60BE1BF78C720022381C /* BTCChinaMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */; };
 		042A60C51BF866930022381C /* MarketAdaptorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60C41BF866930022381C /* MarketAdaptorFactory.m */; };
 		042A60CB1BFA0AA30022381C /* MarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60CA1BFA0AA30022381C /* MarketTableViewCell.m */; };
@@ -57,8 +57,8 @@
 		042A60B21BF7882A0022381C /* MarketDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketDataService.h; sourceTree = "<group>"; };
 		042A60B31BF7882A0022381C /* MarketDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketDataService.m; sourceTree = "<group>"; };
 		042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdaptorProtocol.h; sourceTree = "<group>"; };
-		042A60B91BF78C440022381C /* OKCoinMarketAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKCoinMarketAdaptor.h; sourceTree = "<group>"; };
-		042A60BA1BF78C440022381C /* OKCoinMarketAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKCoinMarketAdaptor.m; sourceTree = "<group>"; };
+		042A60B91BF78C440022381C /* OKCoinCNMarketAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKCoinCNMarketAdaptor.h; sourceTree = "<group>"; };
+		042A60BA1BF78C440022381C /* OKCoinCNMarketAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKCoinCNMarketAdaptor.m; sourceTree = "<group>"; };
 		042A60BC1BF78C720022381C /* BTCChinaMarketAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCChinaMarketAdaptor.h; sourceTree = "<group>"; };
 		042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCChinaMarketAdaptor.m; sourceTree = "<group>"; };
 		042A60C01BF78FE80022381C /* ServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceProtocol.h; sourceTree = "<group>"; };
@@ -139,8 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */,
-				042A60B91BF78C440022381C /* OKCoinMarketAdaptor.h */,
-				042A60BA1BF78C440022381C /* OKCoinMarketAdaptor.m */,
+				042A60B91BF78C440022381C /* OKCoinCNMarketAdaptor.h */,
+				042A60BA1BF78C440022381C /* OKCoinCNMarketAdaptor.m */,
 				042A60BC1BF78C720022381C /* BTCChinaMarketAdaptor.h */,
 				042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */,
 				042A60C31BF866930022381C /* MarketAdaptorFactory.h */,
@@ -428,7 +428,7 @@
 				042A60C51BF866930022381C /* MarketAdaptorFactory.m in Sources */,
 				042A60BE1BF78C720022381C /* BTCChinaMarketAdaptor.m in Sources */,
 				041C8C221BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m in Sources */,
-				042A60BB1BF78C440022381C /* OKCoinMarketAdaptor.m in Sources */,
+				042A60BB1BF78C440022381C /* OKCoinCNMarketAdaptor.m in Sources */,
 				041C8C251C036533000AFE7B /* Util.m in Sources */,
 				041C8C6F1C09EA37000AFE7B /* MarketModels.m in Sources */,
 				040A6DD01BFC8A9B00F4CCC0 /* MarketViewController.m in Sources */,

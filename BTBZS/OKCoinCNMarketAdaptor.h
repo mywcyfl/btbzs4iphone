@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "BaseAdaptorProtocol.h"
 
-@interface OKCoinMarketAdaptor : NSObject<BaseAdaptorProtocol>
+@interface OKCoinCNMarketAdaptor : NSObject<BaseAdaptorProtocol>
 
 @end

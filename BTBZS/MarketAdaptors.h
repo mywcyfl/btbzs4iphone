@@ -6,5 +6,5 @@
 //  Copyright © 2015年 btbzs. All rights reserved.
 //
 
-#import "OKCoinMarketAdaptor.h"
+#import "OKCoinCNMarketAdaptor.h"
 #import "BTCChinaMarketAdaptor.h"

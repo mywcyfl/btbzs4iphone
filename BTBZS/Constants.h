@@ -27,7 +27,7 @@ typedef void (^StandardCallback) (NSError* error, id result);
  */
 typedef enum {
     kNoneMarketAdaptor      = 0,
-    kOKCoinMarketAdaptor    = 1,    // OKCoin
+    kOKCoinCNMarketAdaptor  = 1,    // OKCoin中国站
     kBTCCMarketAdaptor      = 2     // BTCChina
 }MarketAdaptorEnum;
 

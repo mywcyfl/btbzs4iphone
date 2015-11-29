@@ -22,7 +22,7 @@
     dispatch_once(&token, ^{
         instance = [[MarketAdaptorFactory alloc] init];
         instance.adaptors = @{
-                              @([OKCoinMarketAdaptor MarketIdentify])   : [[OKCoinMarketAdaptor alloc] init],
+                              @([OKCoinCNMarketAdaptor MarketIdentify])   : [[OKCoinCNMarketAdaptor alloc] init],
                               @([BTCChinaMarketAdaptor MarketIdentify]) : [[BTCChinaMarketAdaptor alloc] init]
                               };
     });
