@@ -40,7 +40,10 @@ static NSString* s_queryLtc     = @"https://data.btcchina.com/data/ticker?market
 /*
  * Override
  */
-- (void)queryTradeInfo:(VitualCoinEnum)coinType saveOn:(TradeInfo*)tradeInfo withCallback:(StandardCallback)cb {
+- (void)queryTradeInfo:(VitualCoinEnum)coinType
+             extension:(NSString*) extension
+                saveOn:(TradeInfo*)tradeInfo
+          withCallback:(StandardCallback)cb {
     static AFHTTPRequestOperationManager* manager = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{

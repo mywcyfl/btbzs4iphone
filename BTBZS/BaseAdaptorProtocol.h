@@ -27,6 +27,7 @@
 // 查询交易信息
 @required
 - (void)queryTradeInfo:(VitualCoinEnum)coinType
+             extension:(NSString*) extension
                 saveOn:(TradeInfo*)tradeInfo
           withCallback:(StandardCallback)cb;
 

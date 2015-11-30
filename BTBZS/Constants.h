@@ -60,3 +60,9 @@ typedef enum {
     kMarketPageIndex_OtherCoinsMarkets = 3,   // 其它币市场
     kMarketPageIndex_MaxCnt            = 4
 }MarketPageIndexEnum;
+
+/*
+ * 常用字符串定义
+ */
+#define OKCOIN_COM_GUOJI    @"国际"
+#define OKCOIN_COM_HEYUE    @"合约"
