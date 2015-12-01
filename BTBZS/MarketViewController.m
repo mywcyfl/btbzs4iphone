@@ -38,6 +38,9 @@
         tableView.tag           = i;
         tableView.showsHorizontalScrollIndicator    = NO;
         tableView.showsVerticalScrollIndicator      = NO;
+        // 添加长按手势
+        UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+        [tableView addGestureRecognizer:longPress];
         // 接入第三方下拉刷新组件
         tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
                                                                refreshingAction:@selector(refreshTableView)];
@@ -134,6 +137,82 @@
 
 #pragma mark -
 #pragma mark 功能性函数
+
+/*
+ * 拖动排序逻辑实现
+ */
+- (IBAction)longPressGestureRecognized:(UILongPressGestureRecognizer*)longPress {
+    UIGestureRecognizerState state  = longPress.state;
+    UITableView* targetView         = (UITableView*)longPress.view;
+    CGPoint location                = [longPress locationInView:targetView];
+    NSIndexPath* indexPath          = [targetView indexPathForRowAtPoint:location];
+    
+    static UIView       *snapshot           = nil;  //< A snapshot of the row user is moving.
+    static NSIndexPath  *sourceIndexPath    = nil;  //< Initial index path, where gesture begins.
+    
+    switch (state) {
+        case UIGestureRecognizerStateBegan: {
+            if (indexPath) {
+                sourceIndexPath = indexPath;
+                
+                UITableViewCell *cell = [targetView cellForRowAtIndexPath:indexPath];
+                // Take a snapshot of the selected row using helper method.
+                snapshot        = [self customSnapshotFromView:cell];
+                CGPoint center  = cell.center;
+                snapshot.center = center;
+                snapshot.alpha  = 0.95;
+                [targetView addSubview:snapshot];
+                
+                // 将原cell隐藏
+                cell.hidden = YES;
+            }
+            break; 
+        }
+            
+        case UIGestureRecognizerStateChanged: {
+            CGPoint center  = snapshot.center;
+            center.y        = location.y;
+            snapshot.center = center;
+            
+            // 判断是否拖拽目标到了新的一行
+            if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
+                
+                [targetView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
+                
+                // and update source so it is in sync with UI changes.
+                sourceIndexPath = indexPath; 
+            } 
+            break; 
+        }
+            
+        default: {
+            // Clean up.
+            UITableViewCell *cell = [targetView cellForRowAtIndexPath:sourceIndexPath];
+            [UIView animateWithDuration:0.25 animations:^{
+                snapshot.center = cell.center;
+                snapshot.transform = CGAffineTransformIdentity;
+            } completion:^(BOOL finished) {
+                [snapshot removeFromSuperview]; 
+                snapshot    = nil;
+                cell.hidden = NO;
+            }]; 
+            sourceIndexPath = nil; 
+            break; 
+        }
+    }
+}
+
+- (UIView *)customSnapshotFromView:(UIView *)inputView {
+
+    UIView *snapshot = [inputView snapshotViewAfterScreenUpdates:YES];
+    snapshot.layer.masksToBounds = NO;
+    snapshot.layer.cornerRadius = 0.0;
+    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0);
+    snapshot.layer.shadowRadius = 5.0;
+    snapshot.layer.shadowOpacity = 0.4;
+    
+    return snapshot;
+}
 
 /*
  * 转换到当前被选中的tableView
