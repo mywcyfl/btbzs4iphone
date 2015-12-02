@@ -197,6 +197,27 @@
     }
 }
 
++ (void)exchangeRow:(MarketPageIndexEnum)pageIndex
+               aRow:(NSInteger)rowAIndex
+           withBRow:(NSInteger)rowBIndex {
+    if (rowAIndex == rowBIndex) {
+        return;
+    }
+    
+    NSString* pageStr   = [self pageIndexToStr:pageIndex];
+    NSDictionary* dics   = [[MarketDataService sharedInstance].runtimeContext objectForKey:pageStr];
+    
+    NSString* rowAKey = [NSString stringWithFormat:@"%ld", rowAIndex];
+    NSString* rowBKey = [NSString stringWithFormat:@"%ld", rowBIndex];
+    
+    NSDictionary* rowADic = [dics objectForKey:rowAKey];
+    NSDictionary* rowBDic = [dics objectForKey:rowBKey];
+    
+    if (nil != rowADic && nil != rowBDic) {
+        [dics setValue:rowADic forKey:rowBKey];
+        [dics setValue:rowBDic forKey:rowAKey];
+    }
+}
 
 #pragma -
 #pragma mark 内部辅助函数

@@ -35,4 +35,11 @@
 + (void)refreshPageData:(MarketPageIndexEnum)pageIndex
            withCallback:(StandardCallback) cb;
 
+/*
+ *
+ */
++ (void)exchangeRow:(MarketPageIndexEnum)pageIndex
+               aRow:(NSInteger)rowAIndex
+           withBRow:(NSInteger)rowBIndex;
+
 @end

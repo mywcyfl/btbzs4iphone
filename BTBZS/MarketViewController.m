@@ -162,9 +162,12 @@
                 snapshot.center = center;
                 snapshot.alpha  = 0.95;
                 [targetView addSubview:snapshot];
-                
                 // 将原cell隐藏
                 cell.hidden = YES;
+                
+                [UIView animateWithDuration:0.25 animations:^{
+                    snapshot.transform = CGAffineTransformMakeScale(1.0, 1.05);
+                } completion:nil];
             }
             break; 
         }
@@ -176,7 +179,11 @@
             
             // 判断是否拖拽目标到了新的一行
             if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
-                
+                // 数据中两行顺序交换
+                [MarketDataService exchangeRow:(MarketPageIndexEnum)targetView.tag
+                                          aRow:sourceIndexPath.row
+                                      withBRow:indexPath.row];
+                // 界面中，两个cell交换
                 [targetView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
                 
                 // and update source so it is in sync with UI changes.
