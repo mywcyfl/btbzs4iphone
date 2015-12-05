@@ -13,12 +13,16 @@
 #import "Constants.h"
 #import "MJRefresh.h"
 
-#define MarketScrollViewTag 1000      // scrollView的tag
+#define MarketScrollViewTag 1000            // scrollView的tag
+const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
 
 @interface MarketViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) UITableView* currentTableView;
+@property (weak, nonatomic) IBOutlet UIScrollView*  scrollView;
+@property (strong, nonatomic) UITableView*          currentTableView;
+@property (strong, nonatomic) NSTimer*              countdownTimer;
+@property (assign, nonatomic) NSInteger             cntDownValue;               // 刷新倒计时数值
+@property (strong, nonatomic) NSMutableDictionary*  tableViews;                 //
 @end
 
 @implementation MarketViewController
@@ -29,43 +33,15 @@
     __unused CGFloat w = self.view.frame.size.width;
     __unused CGFloat h = self.view.frame.size.height;
     
-    // [Step 1] 初始化scrollView
-    CGRect frame = _scrollView.frame;
-    for (NSInteger i = 0; i < kMarketPageIndex_MaxCnt; i++) {
-        UITableView* tableView = [[UITableView alloc] initWithFrame:CGRectMake(i*w, 0, frame.size.width, frame.size.height)];
-        tableView.delegate      = self;
-        tableView.dataSource    = self;
-        tableView.tag           = i;
-        tableView.showsHorizontalScrollIndicator    = NO;
-        tableView.showsVerticalScrollIndicator      = NO;
-        // 添加长按手势
-        UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
-        [tableView addGestureRecognizer:longPress];
-        // 接入第三方下拉刷新组件
-        tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
-                                                               refreshingAction:@selector(refreshTableView)];
-        
-        // 注册cell
-        UINib* nib = [UINib nibWithNibName:[MarketTableViewCell reusedIdentifier] bundle:nil];
-        [tableView registerNib:nib forCellReuseIdentifier:[MarketTableViewCell reusedIdentifier]];
-        tableView.rowHeight = [MarketTableViewCell rowHeight];
-        [_scrollView addSubview:tableView];
-        
-        if (0 == i) {
-            _currentTableView = tableView;
-        }
-    }
+    _tableViews = [NSMutableDictionary dictionary];
     
     _scrollView.tag = MarketScrollViewTag;
     _scrollView.contentSize = CGSizeMake(kMarketPageIndex_MaxCnt * w, 0);
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.showsVerticalScrollIndicator = YES;
+    _scrollView.showsHorizontalScrollIndicator  = NO;
+    _scrollView.showsVerticalScrollIndicator    = YES;
     
-    // [Step 2] 初始化segment
-    _segmentedController.selectedSegmentIndex = kMarketPageIndex_FavoritesMarkets;
-    
-    // finally
-    [self changeToCurrentTableView];
+    // 默认进入自选
+    [self changeToTableViewByIndex:kMarketPageIndex_FavoritesMarkets];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,13 +85,8 @@
 - (IBAction)onSegmentValueChanged:(UISegmentedControl *)sender {
     MarketPageIndexEnum pageIndex = (int)sender.selectedSegmentIndex;
     
-    // 滑动ScrollView
-    CGFloat x = pageIndex * _scrollView.frame.size.width;
-    [_scrollView setContentOffset: CGPointMake(x, _scrollView.contentOffset.y) animated:YES];
-    
     // 更换当前tableView
-    _currentTableView = [_scrollView viewWithTag:pageIndex];
-    [self changeToCurrentTableView];
+    [self changeToTableViewByIndex:pageIndex];
 }
 
 /*
@@ -125,18 +96,37 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (MarketScrollViewTag == scrollView.tag) {
         MarketPageIndexEnum pageIndex = scrollView.contentOffset.x / scrollView.frame.size.width;
-        
         if (pageIndex != _segmentedController.selectedSegmentIndex) {
-            // 设置页码
-            _segmentedController.selectedSegmentIndex = pageIndex;
-            _currentTableView = [_scrollView viewWithTag:pageIndex];
-            [self changeToCurrentTableView];
+            [self changeToTableViewByIndex:pageIndex];
         }
     }
 }
 
 #pragma mark -
 #pragma mark 功能性函数
+
+/*
+ * 刷新倒计时
+ */
+- (void)countdownStep {
+    self.cntDownValue--;
+    NSString* str = [NSString stringWithFormat:@"%ld", self.cntDownValue];
+    if (self.cntDownValue > 0) {
+        // 计时器减一
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:str
+                                                                                  style:UIBarButtonItemStylePlain
+                                                                                 target:nil action:nil];
+        
+        [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:12],
+                                                                         NSForegroundColorAttributeName:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]}
+                                                              forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+        // 刷新
+        [self refreshTableView];
+    }
+}
 
 /*
  * 拖动排序逻辑实现
@@ -224,10 +214,51 @@
 /*
  * 转换到当前被选中的tableView
  */
-- (void)changeToCurrentTableView {
+- (void)changeToTableViewByIndex: (MarketPageIndexEnum) pageIndex {
+    BOOL firstEnter     = NO;
+    NSString* key       = [NSString stringWithFormat:@"%ld", (NSInteger)pageIndex];
+    _currentTableView   = [_tableViews objectForKey:key];
     
-    // 暂时直接reload
-    [_currentTableView reloadData];
+    if (nil == _currentTableView) {
+        firstEnter      = YES;
+        CGFloat w       = self.view.frame.size.width;
+        CGRect frame    = _scrollView.frame;
+        
+        _currentTableView = [[UITableView alloc] initWithFrame:CGRectMake(pageIndex*w, 0, frame.size.width, frame.size.height)];
+        _currentTableView.delegate      = self;
+        _currentTableView.dataSource    = self;
+        _currentTableView.tag           = pageIndex;
+        _currentTableView.showsHorizontalScrollIndicator    = NO;
+        _currentTableView.showsVerticalScrollIndicator      = NO;
+        [_currentTableView setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];
+        //[tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        // 添加长按手势
+        UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+        [_currentTableView addGestureRecognizer:longPress];
+        // 接入第三方下拉刷新组件
+        _currentTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
+                                                               refreshingAction:@selector(refreshTableView)];
+        
+        // 注册cell
+        UINib* nib = [UINib nibWithNibName:[MarketTableViewCell reusedIdentifier] bundle:nil];
+        [_currentTableView registerNib:nib forCellReuseIdentifier:[MarketTableViewCell reusedIdentifier]];
+        _currentTableView.rowHeight = [MarketTableViewCell rowHeight];
+        
+        [_tableViews setObject:_currentTableView forKey:key];
+        [_scrollView addSubview:_currentTableView];
+        
+        // 首次进入，下拉刷新
+        [_currentTableView.mj_header beginRefreshing];
+    }
+    
+    if (_segmentedController.selectedSegmentIndex != pageIndex) {
+        // 切换segCtrl
+        _segmentedController.selectedSegmentIndex = pageIndex;
+    }
+    
+    // 滑动ScrollView
+    CGFloat x = pageIndex * _scrollView.frame.size.width;
+    [_scrollView setContentOffset: CGPointMake(x, _scrollView.contentOffset.y) animated:!firstEnter];
 }
 
 /*
@@ -238,7 +269,22 @@
                           withCallback:^(NSError *error, NSDictionary *result) {
                               [_currentTableView.mj_header endRefreshing];
                               [_currentTableView reloadData];
+                              // 刷新倒计时
+                              [self restartCountDown];
     }];
+}
+
+- (void)restartCountDown {
+    if ([self.countdownTimer isValid]) {
+        [self.countdownTimer invalidate];
+    }
+    
+    self.cntDownValue = kCountDownTopValue;
+    self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                           target:self
+                                                         selector:@selector(countdownStep)
+                                                         userInfo:nil
+                                                          repeats:YES];
 }
 
 @end

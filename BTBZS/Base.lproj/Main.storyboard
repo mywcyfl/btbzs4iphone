@@ -144,6 +144,7 @@
                     <tabBarItem key="tabBarItem" title="行情" image="行情" id="pA7-KV-OfG"/>
                     <navigationItem key="navigationItem" title="行情" id="XKL-aw-cui"/>
                     <connections>
+                        <outlet property="navigationItem" destination="XKL-aw-cui" id="qob-rt-gO7"/>
                         <outlet property="scrollView" destination="seO-pj-PoN" id="xBG-uE-rfn"/>
                         <outlet property="segmentedController" destination="aNC-kz-oIy" id="22V-eT-D2m"/>
                     </connections>
