@@ -13,8 +13,12 @@
 #import "Constants.h"
 #import "MJRefresh.h"
 
-#define MarketScrollViewTag 1000            // scrollView的tag
-const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
+#define MarketScrollViewTag 1000                                        // scrollView的tag
+const unsigned int kCountDownTopValue = 31;                             // 刷新倒计时起始值
+const unsigned int kOptionTableViewTag = kMarketPageIndex_MaxCnt + 1;   // 选项菜单tag
+
+const unsigned int kMarketTableViewIndex = 0;
+const unsigned int kOptionTableViewIndex = 1;
 
 @interface MarketViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedController;
@@ -23,6 +27,8 @@ const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
 @property (strong, nonatomic) NSTimer*              countdownTimer;
 @property (assign, nonatomic) NSInteger             cntDownValue;               // 刷新倒计时数值
 @property (strong, nonatomic) NSMutableDictionary*  tableViews;                 //
+@property (assign, nonatomic) BOOL                  showOptions;                // 是否展开了选项菜单
+@property (strong, nonatomic) UITableView*          optionTableView;            // 选项菜单
 @end
 
 @implementation MarketViewController
@@ -39,6 +45,11 @@ const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
     _scrollView.contentSize = CGSizeMake(kMarketPageIndex_MaxCnt * w, 0);
     _scrollView.showsHorizontalScrollIndicator  = NO;
     _scrollView.showsVerticalScrollIndicator    = YES;
+    
+    // 添加左边设置按钮
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                          target:self
+                                                                                          action:@selector(onOptionsPressed:)];
     
     // 默认进入自选
     [self changeToTableViewByIndex:kMarketPageIndex_FavoritesMarkets];
@@ -63,19 +74,42 @@ const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
  * Override
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [MarketDataService CountOfMarket:(MarketPageIndexEnum)tableView.tag];
+    NSInteger cnt = 0;
+    if (tableView.tag < kMarketPageIndex_MaxCnt) {
+        cnt = [MarketDataService CountOfMarket:(MarketPageIndexEnum)tableView.tag];
+    }
+    
+    return cnt;
 }
 
 /*
  * Override
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MarketTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:[MarketTableViewCell reusedIdentifier]
-                                                                forIndexPath:indexPath];
+    MarketTableViewCell* cell = nil;
+    if (tableView.tag < kMarketPageIndex_MaxCnt) {
+         cell = [tableView dequeueReusableCellWithIdentifier:[MarketTableViewCell reusedIdentifier]
+                                                forIndexPath:indexPath];
+        
+        [MarketDataService initCellValue:cell
+                           withPageIndex:(MarketPageIndexEnum)tableView.tag
+                           withCellIndex:indexPath.row];
+    }
     
-    [MarketDataService initCellValue:cell withPageIndex:(MarketPageIndexEnum)tableView.tag withCellIndex:indexPath.row];
     
     return cell;
+}
+
+/*
+ * Override
+ */
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
 }
 
 /*
@@ -104,6 +138,30 @@ const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
 
 #pragma mark -
 #pragma mark 功能性函数
+
+/*
+ * 左边设置按钮按下
+ */
+- (IBAction)onOptionsPressed:(id)sender {
+    if (nil == _optionTableView) {
+        // lazy load
+        _optionTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 100)];
+        _optionTableView.delegate      = self;
+        _optionTableView.dataSource    = self;
+        _optionTableView.tag           = kOptionTableViewTag;
+        _optionTableView.showsHorizontalScrollIndicator    = NO;
+        _optionTableView.showsVerticalScrollIndicator      = NO;
+        [_optionTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+        [_scrollView insertSubview:_optionTableView atIndex:kOptionTableViewIndex];
+    }
+    if (_showOptions) {
+        _showOptions = NO;
+        _optionTableView.frame = CGRectMake(0, -100, 50, 100);
+    } else {
+        _showOptions = YES;
+        _optionTableView.frame = CGRectMake(0, 0, 50, 100);
+    }
+}
 
 /*
  * 刷新倒计时
@@ -230,14 +288,15 @@ const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
         _currentTableView.tag           = pageIndex;
         _currentTableView.showsHorizontalScrollIndicator    = NO;
         _currentTableView.showsVerticalScrollIndicator      = NO;
-        [_currentTableView setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];
-        //[tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [_currentTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
         // 添加长按手势
-        UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+        UILongPressGestureRecognizer* longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                action:@selector(longPressGestureRecognized:)];
         [_currentTableView addGestureRecognizer:longPress];
         // 接入第三方下拉刷新组件
         _currentTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
                                                                refreshingAction:@selector(refreshTableView)];
+        _currentTableView.tableFooterView = [[UIView alloc] init];
         
         // 注册cell
         UINib* nib = [UINib nibWithNibName:[MarketTableViewCell reusedIdentifier] bundle:nil];
@@ -245,7 +304,7 @@ const unsigned int kCountDownTopValue = 5; // 刷新倒计时起始值
         _currentTableView.rowHeight = [MarketTableViewCell rowHeight];
         
         [_tableViews setObject:_currentTableView forKey:key];
-        [_scrollView addSubview:_currentTableView];
+        [_scrollView insertSubview:_currentTableView atIndex:kMarketTableViewIndex];
         
         // 首次进入，下拉刷新
         [_currentTableView.mj_header beginRefreshing];
