@@ -8,13 +8,13 @@
 
 #import "MarketDataService.h"
 #import "BaseAdaptorProtocol.h"
-#import "MarketAdaptorFactory.h"
 #import "MarketModels.h"
+#import "AFNetworking.h"
 
 #define MDS_FAVORITES           @"favorites"
-#define MDS_BITCOINMARKETS      @"BitcoinMarkets"
-#define MDS_LITECOINMARKETS     @"LiteCoinMarkets"
-#define MDS_OTHERCOINMARKETS    @"OthersCoinMarkets"
+#define MDS_BITCOINMARKETS      @"btc"
+#define MDS_LITECOINMARKETS     @"ltc"
+#define MDS_OTHERCOINMARKETS    @"others"
 
 #define MDS_MARKET_NAME         @"name"         // 名字
 #define MDS_MARKET_CURRENCY     @"currency"     // 现实币种
@@ -23,8 +23,14 @@
 #define MDS_MARKET_TRADE_INFO   @"tradeInfo"    // 行情
 #define MDS_MARKET_EXTENSION    @"extension"    // 扩展字段
 
+#define AskAllTradeinfoUri      @"http://localhost:3000/market/tradeInfo?coinType=all"
+#define AskBtcTradeinfoUri      @"http://localhost:3000/market/tradeInfo?coinType=btc"
+#define AskLtcTradeinfoUri      @"http://localhost:3000/market/tradeInfo?coinType=ltc"
+#define AskOthersTradeinfoUri   @"http://localhost:3000/market/tradeInfo?coinType=others"
+
+
 @interface MarketDataService ()
-@property(strong, nonatomic) NSDictionary* runtimeContext;
+@property(strong, nonatomic) NSMutableDictionary* runtimeContext;
 @end
 
 @implementation MarketDataService
@@ -39,85 +45,6 @@
         // 自选
         NSMutableDictionary* favorites = [NSMutableDictionary dictionary];
         [instance.runtimeContext setValue:favorites forKey:MDS_FAVORITES];
-        
-        // 比特币行情
-        NSMutableDictionary* bitcoinMarkets = [NSMutableDictionary dictionary];
-        [bitcoinMarkets setValue:@{MDS_MARKET_NAME        :@"OKCoin国际",
-                                   MDS_MARKET_CURRENCY    :@(2),
-                                   MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
-                                   MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin),
-                                   MDS_MARKET_EXTENSION   :OKCOIN_COM_GUOJI,
-                                   MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                   }
-                          forKey:@"0"];
-        
-        
-        [bitcoinMarkets setValue:@{MDS_MARKET_NAME        :@"OKCoin中国",
-                                   MDS_MARKET_CURRENCY    :@(1),
-                                   MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
-                                   MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin),
-                                   MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                   }
-                          forKey:@"1"];
-        
-        [bitcoinMarkets setValue:@{MDS_MARKET_NAME        :@"OKCoin期货-本周",
-                                   MDS_MARKET_CURRENCY    :@(2),
-                                   MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
-                                   MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin),
-                                   MDS_MARKET_EXTENSION   :OKCOIN_COM_HEYUE,
-                                   MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                   }
-                          forKey:@"2"];
-        
-        [bitcoinMarkets setValue:@{MDS_MARKET_NAME        :@"BTCC（比特币中国）",
-                                   MDS_MARKET_CURRENCY    :@(1),
-                                   MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kBTCCMarketAdaptor],
-                                   MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_BitCoin),
-                                   MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                   }
-                          forKey:@"3"];
-        [instance.runtimeContext setValue:bitcoinMarkets forKey:MDS_BITCOINMARKETS];
-        
-        // 莱特币行情
-        NSMutableDictionary* litecoinMarkets = [NSMutableDictionary dictionary];
-        [litecoinMarkets setValue:@{MDS_MARKET_NAME        :@"OKCoin国际",
-                                    MDS_MARKET_CURRENCY    :@(2),
-                                    MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
-                                    MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin),
-                                    MDS_MARKET_EXTENSION   :OKCOIN_COM_GUOJI,
-                                    MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                    }
-                          forKey:@"0"];
-        
-        [litecoinMarkets setValue:@{MDS_MARKET_NAME        :@"OKCoin中国",
-                                    MDS_MARKET_CURRENCY    :@(1),
-                                    MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
-                                    MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin),
-                                    MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                    }
-                           forKey:@"1"];
-        
-        [litecoinMarkets setValue:@{MDS_MARKET_NAME        :@"OKCoin期货-本周",
-                                    MDS_MARKET_CURRENCY    :@(2),
-                                    MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kOKCoinCNMarketAdaptor],
-                                    MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin),
-                                    MDS_MARKET_EXTENSION   :OKCOIN_COM_HEYUE,
-                                    MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                    }
-                           forKey:@"2"];
-        
-        [litecoinMarkets setValue:@{MDS_MARKET_NAME        :@"BTCC（比特币中国）",
-                                    MDS_MARKET_CURRENCY    :@(2),
-                                    MDS_MARKET_ADAPTOR     :[MarketAdaptorFactory GetAdaptorById:kBTCCMarketAdaptor],
-                                    MDS_MARKET_COIN_TYPE   :@(kVitualCoinEnum_LiteCoin),
-                                    MDS_MARKET_TRADE_INFO  :[[TradeInfo alloc] init]
-                                    }
-                           forKey:@"3"];
-        [instance.runtimeContext setValue:litecoinMarkets forKey:MDS_LITECOINMARKETS];
-        
-        // 其它币
-        NSMutableDictionary* others= [NSMutableDictionary dictionary];
-        [instance.runtimeContext setValue:others forKey:MDS_OTHERCOINMARKETS];
         
         NSLog(@"market config:\n%@", instance.runtimeContext);
     });
@@ -138,63 +65,78 @@
 + (UITableViewCell*)initCellValue:(MarketTableViewCell*)cell
         withPageIndex:(MarketPageIndexEnum)pageIndex
         withCellIndex:(NSInteger)cellIndex {
-    NSString* pageStr   = [self pageIndexToStr:pageIndex];
-    NSDictionary* dic   = [[MarketDataService sharedInstance].runtimeContext objectForKey:pageStr];
-    NSDictionary* market = [dic objectForKey:[NSString stringWithFormat:@"%ld", (long)cellIndex]];
+    NSString* pageStr       = [self pageIndexToStr:pageIndex];
+    TradeInfo* tradeInfo    = [self tradeInfoForIndex:cellIndex inPage:pageStr];
     
-    cell.marketName     = [market objectForKey:MDS_MARKET_NAME];
-    cell.currency       = [self CurrencyEnumToStr:(CurrencyEnum)[[market objectForKey:MDS_MARKET_CURRENCY] intValue]];
-    
-    TradeInfo* tradeInfo = [market objectForKey:MDS_MARKET_TRADE_INFO];
-    if ([tradeInfo isKindOfClass:[TradeInfo class]]) {
-        cell.curPriceRMB    = tradeInfo.lastPrice;
-        cell.curPriceUSD    = tradeInfo.lastPrice;
-        cell.volume         = tradeInfo.volume;
-        cell.buyFirstPrice  = tradeInfo.firstBuy;
-        cell.sellFirstPrice = tradeInfo.firstSell;
-        cell.highestPrice   = tradeInfo.highest;
-        cell.lowestPrice    = tradeInfo.lowest;
-        cell.trend          = 1;
+    if (nil == tradeInfo) {
+        return cell;
     }
+    
+    cell.marketName     = tradeInfo.name;
+    cell.currency       = @"RMB";
+    cell.curPriceRMB    = tradeInfo.lastPrice;
+    cell.curPriceUSD    = tradeInfo.lastPrice;
+    cell.volume         = tradeInfo.volume;
+    cell.buyFirstPrice  = tradeInfo.firstBuy;
+    cell.sellFirstPrice = tradeInfo.firstSell;
+    cell.highestPrice   = tradeInfo.highest;
+    cell.lowestPrice    = tradeInfo.lowest;
+    cell.trend          = 1;
     
     return cell;
 }
 
 + (void)refreshPageData:(MarketPageIndexEnum)pageIndex
            withCallback:(StandardCallback) cb {
-    NSString* pageStr   = [self pageIndexToStr:pageIndex];
-    NSDictionary* dics   = [[MarketDataService sharedInstance].runtimeContext objectForKey:pageStr];
+    static AFHTTPRequestOperationManager* manager = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        manager = [AFHTTPRequestOperationManager manager];
+    });
     
-    __block int refrestCnt = 0;
-    for (NSString* key in dics) {
-        NSDictionary* dic = [dics objectForKey:key];
-        id<BaseAdaptorProtocol> adaptor = [dic objectForKey:MDS_MARKET_ADAPTOR];
-        if (![adaptor conformsToProtocol:@protocol(BaseAdaptorProtocol)]) {
-            continue;
-        }
-        
-        TradeInfo* tradeInfo = [dic objectForKey:MDS_MARKET_TRADE_INFO];
-        if (![tradeInfo isKindOfClass:[TradeInfo class]]) {
-            continue;
-        }
-        
-        refrestCnt++;
-        VitualCoinEnum coinType = (VitualCoinEnum)[[dic objectForKey:MDS_MARKET_COIN_TYPE] intValue];
-        NSString* extension     = [dic objectForKey:MDS_MARKET_EXTENSION];
-        if ([adaptor respondsToSelector:@selector(queryTradeInfo:extension:saveOn:withCallback:)]) {
-            [adaptor queryTradeInfo:coinType extension:extension saveOn:tradeInfo withCallback:^(NSError *error, id result) {
-                refrestCnt--;
-                if (refrestCnt <= 0) {
-                    CALL_STANDARD_CB(cb, nil, nil);
-                    return;
+    NSString* uri = AskAllTradeinfoUri;
+    
+    [manager GET:uri parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"get tradeInfo from %@\n: %@", uri, responseObject);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            // 上锁防并发
+            NSMutableDictionary* rootTradeInfos = [MarketDataService sharedInstance].runtimeContext;
+            for (NSString* tradeInfosKey in responseObject) {
+                NSMutableDictionary* tradeInfos = [rootTradeInfos objectForKey:tradeInfosKey];
+                if (nil == tradeInfos) {
+                    tradeInfos = [NSMutableDictionary dictionary];
+                    [rootTradeInfos setObject:tradeInfos forKey:tradeInfosKey];
                 }
-            }];
+                
+                NSDictionary* netTradeInfos = [responseObject objectForKey:tradeInfosKey];
+                NSArray* keys = [netTradeInfos allKeys];
+                for (NSInteger i = 0; i < keys.count; i++) {
+                    NSString* netTradeInfoKey  = [keys objectAtIndex:i];
+                    NSDictionary* netTradeInfo = [netTradeInfos objectForKey:netTradeInfoKey];
+                    
+                    TradeInfo* tradeInfo = [tradeInfos objectForKey:netTradeInfoKey];
+                    if (nil == tradeInfo) {
+                        // 本地还没有这个数据则插入
+                        tradeInfo       = [TradeInfo fromNetJson:netTradeInfo];
+                        tradeInfo.index = i;
+                        [tradeInfos setObject:tradeInfo forKey:netTradeInfoKey];
+                    } else {
+                        TradeInfo* newTradeInfo = [TradeInfo fromNetJson:netTradeInfo];
+                        newTradeInfo.index      = tradeInfo.index;
+                        if (newTradeInfo.updateTime > tradeInfo.updateTime) {
+                            // 替换
+                            [tradeInfos setObject:newTradeInfo forKey:netTradeInfoKey];
+                        }
+                    }
+                }
+            }
         }
-    }
-    
-    if (refrestCnt <= 0) {
+        
         CALL_STANDARD_CB(cb, nil, nil);
-    }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"get error from %@\n: %@", uri, error);
+        CALL_STANDARD_CB(cb, error, nil);
+    }];
 }
 
 + (void)exchangeRow:(MarketPageIndexEnum)pageIndex
@@ -229,6 +171,22 @@
     }
     
     return @"";
+}
+
++ (TradeInfo*)tradeInfoForIndex:(NSInteger) index inPage:(NSString*)pageStr {
+    NSDictionary* dic           = [[MarketDataService sharedInstance].runtimeContext objectForKey:pageStr];
+    if (![dic isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+    
+    for (NSString* key in dic) {
+        TradeInfo* tradeInfo = [dic objectForKey:key];
+        if (tradeInfo.index == index) {
+            return tradeInfo;
+        }
+    }
+    
+    return nil;
 }
 
 + (NSString*)pageIndexToStr:(MarketPageIndexEnum)pageIndex {

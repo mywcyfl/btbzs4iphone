@@ -12,11 +12,10 @@
 		041C8C251C036533000AFE7B /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C241C036533000AFE7B /* Util.m */; };
 		041C8C6F1C09EA37000AFE7B /* MarketModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C6E1C09EA37000AFE7B /* MarketModels.m */; };
 		042A60B41BF7882A0022381C /* MarketDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60B31BF7882A0022381C /* MarketDataService.m */; };
-		042A60BB1BF78C440022381C /* OKCoinCNMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BA1BF78C440022381C /* OKCoinCNMarketAdaptor.m */; };
 		042A60BE1BF78C720022381C /* BTCChinaMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */; };
-		042A60C51BF866930022381C /* MarketAdaptorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60C41BF866930022381C /* MarketAdaptorFactory.m */; };
 		042A60CB1BFA0AA30022381C /* MarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60CA1BFA0AA30022381C /* MarketTableViewCell.m */; };
 		042A60CE1BFA12D60022381C /* MarketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042A60CD1BFA12D60022381C /* MarketTableViewCell.xib */; };
+		04B859AE1C1734D9009EE56F /* MarketOptionsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B859AD1C1734D9009EE56F /* MarketOptionsService.m */; };
 		04CA5F2F1BF58C1D00FF7E75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CA5F2E1BF58C1D00FF7E75 /* main.m */; };
 		04CA5F321BF58C1D00FF7E75 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CA5F311BF58C1D00FF7E75 /* AppDelegate.m */; };
 		04CA5F381BF58C1D00FF7E75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04CA5F361BF58C1D00FF7E75 /* Main.storyboard */; };
@@ -57,17 +56,15 @@
 		042A60B21BF7882A0022381C /* MarketDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketDataService.h; sourceTree = "<group>"; };
 		042A60B31BF7882A0022381C /* MarketDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketDataService.m; sourceTree = "<group>"; };
 		042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdaptorProtocol.h; sourceTree = "<group>"; };
-		042A60B91BF78C440022381C /* OKCoinCNMarketAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKCoinCNMarketAdaptor.h; sourceTree = "<group>"; };
-		042A60BA1BF78C440022381C /* OKCoinCNMarketAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKCoinCNMarketAdaptor.m; sourceTree = "<group>"; };
 		042A60BC1BF78C720022381C /* BTCChinaMarketAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCChinaMarketAdaptor.h; sourceTree = "<group>"; };
 		042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCChinaMarketAdaptor.m; sourceTree = "<group>"; };
 		042A60C01BF78FE80022381C /* ServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceProtocol.h; sourceTree = "<group>"; };
-		042A60C31BF866930022381C /* MarketAdaptorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketAdaptorFactory.h; sourceTree = "<group>"; };
-		042A60C41BF866930022381C /* MarketAdaptorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketAdaptorFactory.m; sourceTree = "<group>"; };
 		042A60C61BF867430022381C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		042A60C91BFA0AA30022381C /* MarketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketTableViewCell.h; sourceTree = "<group>"; };
 		042A60CA1BFA0AA30022381C /* MarketTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketTableViewCell.m; sourceTree = "<group>"; };
 		042A60CD1BFA12D60022381C /* MarketTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketTableViewCell.xib; sourceTree = "<group>"; };
+		04B859AC1C1734D9009EE56F /* MarketOptionsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketOptionsService.h; sourceTree = "<group>"; };
+		04B859AD1C1734D9009EE56F /* MarketOptionsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketOptionsService.m; sourceTree = "<group>"; };
 		04CA5F2A1BF58C1D00FF7E75 /* BTBZS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTBZS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CA5F2E1BF58C1D00FF7E75 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		04CA5F301BF58C1D00FF7E75 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -131,6 +128,8 @@
 				042A60B31BF7882A0022381C /* MarketDataService.m */,
 				041C8C6D1C09EA37000AFE7B /* MarketModels.h */,
 				041C8C6E1C09EA37000AFE7B /* MarketModels.m */,
+				04B859AC1C1734D9009EE56F /* MarketOptionsService.h */,
+				04B859AD1C1734D9009EE56F /* MarketOptionsService.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -139,12 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */,
-				042A60B91BF78C440022381C /* OKCoinCNMarketAdaptor.h */,
-				042A60BA1BF78C440022381C /* OKCoinCNMarketAdaptor.m */,
 				042A60BC1BF78C720022381C /* BTCChinaMarketAdaptor.h */,
 				042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */,
-				042A60C31BF866930022381C /* MarketAdaptorFactory.h */,
-				042A60C41BF866930022381C /* MarketAdaptorFactory.m */,
 				041C8C6A1C099130000AFE7B /* MarketAdaptors.h */,
 			);
 			name = Network;
@@ -425,11 +420,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				04CA5F321BF58C1D00FF7E75 /* AppDelegate.m in Sources */,
-				042A60C51BF866930022381C /* MarketAdaptorFactory.m in Sources */,
 				042A60BE1BF78C720022381C /* BTCChinaMarketAdaptor.m in Sources */,
 				041C8C221BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m in Sources */,
-				042A60BB1BF78C440022381C /* OKCoinCNMarketAdaptor.m in Sources */,
 				041C8C251C036533000AFE7B /* Util.m in Sources */,
+				04B859AE1C1734D9009EE56F /* MarketOptionsService.m in Sources */,
 				041C8C6F1C09EA37000AFE7B /* MarketModels.m in Sources */,
 				040A6DD01BFC8A9B00F4CCC0 /* MarketViewController.m in Sources */,
 				042A60B41BF7882A0022381C /* MarketDataService.m in Sources */,

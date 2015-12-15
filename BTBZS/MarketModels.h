@@ -10,6 +10,9 @@
 
 @interface TradeInfo : NSObject
 
+@property (strong, nonatomic) NSString* name;       //
+@property (assign, nonatomic) NSInteger index;      // 在行情中的排序
+
 @property (strong, nonatomic) NSNumber* highest;    // 近24小时最高
 @property (strong, nonatomic) NSNumber* lowest;     // 近24小时最低
 @property (strong, nonatomic) NSNumber* firstBuy;   // 买一
@@ -20,5 +23,7 @@
 @property (strong, nonatomic) NSNumber* averate;    // 近24小时平均价
 @property (strong, nonatomic) NSNumber* preClose;   // 昨收
 @property (strong, nonatomic) NSNumber* open;       // 今开
+
++(instancetype)fromNetJson:(NSDictionary*) netTradeInfo;
 
 @end

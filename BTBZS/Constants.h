@@ -62,7 +62,23 @@ typedef enum {
 }MarketPageIndexEnum;
 
 /*
- * 常用字符串定义
+ * 行情页选项菜单枚举
  */
-#define OKCOIN_COM_GUOJI    @"国际"
-#define OKCOIN_COM_HEYUE    @"合约"
+typedef enum {
+    kMarketOptionsIndex_FreshFrequency  = 0,   // 刷新频率
+    kMarketOptionsIndex_FreeDrag        = 2    // 自由移动
+}MarketOptionsIndexEnum;
+
+
+/*
+ * 行情单项枚举
+ */
+#define TradeInfo_btcc_btc     @"btcc_btc";             // 比特币中国-比特币行情
+#define TradeInfo_btcc_ltc     @"btcc_ltc";             // 比特币中国-莱特币行情
+#define TradeInfo_okCn_btc     @"okcoin_cn_btc";        // Okcoin中国-比特币行情
+#define TradeInfo_okCn_ltc     @"okcoin_cn_ltc";        // Okcoin中国-莱特币行情
+#define TradeInfo_okCom_btc    @"okcoin_com_btc";       // Okcoin国际-比特币行情
+#define TradeInfo_okCom_ltc    @"okcoin_com_ltc";       // Okcoin国际-莱特币行情
+#define TradeInfo_okCom_hy_btc @"okcoin_com_hy_btc";    // Okcoin国际-合约本周比特币行情
+#define TradeInfo_okCom_hy_ltc @"okcoin_com_hy_ltc";    // Okcoin国际-合约本周莱特币行情
+

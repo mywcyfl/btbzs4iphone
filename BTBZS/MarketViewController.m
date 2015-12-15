@@ -324,12 +324,16 @@ const unsigned int kOptionTableViewIndex = 1;
  * 下拉刷新
  */
 - (void)refreshTableView {
+    __block __weak UITableView* curtableView = _currentTableView;
     [MarketDataService refreshPageData:(MarketPageIndexEnum)_currentTableView.tag
                           withCallback:^(NSError *error, NSDictionary *result) {
-                              [_currentTableView.mj_header endRefreshing];
-                              [_currentTableView reloadData];
-                              // 刷新倒计时
-                              [self restartCountDown];
+                              if (nil != curtableView) {
+                                  [_currentTableView.mj_header endRefreshing];
+                                  [_currentTableView reloadData];
+                                  
+                                  // 刷新倒计时
+                                  [self restartCountDown];
+                              }
     }];
 }
 
