@@ -12,7 +12,6 @@
 		041C8C251C036533000AFE7B /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C241C036533000AFE7B /* Util.m */; };
 		041C8C6F1C09EA37000AFE7B /* MarketModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C8C6E1C09EA37000AFE7B /* MarketModels.m */; };
 		042A60B41BF7882A0022381C /* MarketDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60B31BF7882A0022381C /* MarketDataService.m */; };
-		042A60BE1BF78C720022381C /* BTCChinaMarketAdaptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */; };
 		042A60CB1BFA0AA30022381C /* MarketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042A60CA1BFA0AA30022381C /* MarketTableViewCell.m */; };
 		042A60CE1BFA12D60022381C /* MarketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042A60CD1BFA12D60022381C /* MarketTableViewCell.xib */; };
 		04B859AE1C1734D9009EE56F /* MarketOptionsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B859AD1C1734D9009EE56F /* MarketOptionsService.m */; };
@@ -50,14 +49,10 @@
 		041C8C211BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+ScrollViewIndicator.m"; sourceTree = "<group>"; };
 		041C8C231C036533000AFE7B /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		041C8C241C036533000AFE7B /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
-		041C8C6A1C099130000AFE7B /* MarketAdaptors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketAdaptors.h; sourceTree = "<group>"; };
 		041C8C6D1C09EA37000AFE7B /* MarketModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketModels.h; sourceTree = "<group>"; };
 		041C8C6E1C09EA37000AFE7B /* MarketModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketModels.m; sourceTree = "<group>"; };
 		042A60B21BF7882A0022381C /* MarketDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketDataService.h; sourceTree = "<group>"; };
 		042A60B31BF7882A0022381C /* MarketDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketDataService.m; sourceTree = "<group>"; };
-		042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdaptorProtocol.h; sourceTree = "<group>"; };
-		042A60BC1BF78C720022381C /* BTCChinaMarketAdaptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCChinaMarketAdaptor.h; sourceTree = "<group>"; };
-		042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCChinaMarketAdaptor.m; sourceTree = "<group>"; };
 		042A60C01BF78FE80022381C /* ServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceProtocol.h; sourceTree = "<group>"; };
 		042A60C61BF867430022381C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		042A60C91BFA0AA30022381C /* MarketTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketTableViewCell.h; sourceTree = "<group>"; };
@@ -134,17 +129,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		042A60B51BF78A1B0022381C /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				042A60B61BF78AFA0022381C /* BaseAdaptorProtocol.h */,
-				042A60BC1BF78C720022381C /* BTCChinaMarketAdaptor.h */,
-				042A60BD1BF78C720022381C /* BTCChinaMarketAdaptor.m */,
-				041C8C6A1C099130000AFE7B /* MarketAdaptors.h */,
-			);
-			name = Network;
-			sourceTree = "<group>";
-		};
 		042A60BF1BF78FAD0022381C /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,7 +177,6 @@
 			children = (
 				042A60CC1BFA0AB60022381C /* Views */,
 				042A60BF1BF78FAD0022381C /* Base */,
-				042A60B51BF78A1B0022381C /* Network */,
 				042A60B11BF787CC0022381C /* Models */,
 				042A60B01BF787780022381C /* Controllers */,
 				04CA5F301BF58C1D00FF7E75 /* AppDelegate.h */,
@@ -420,7 +403,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				04CA5F321BF58C1D00FF7E75 /* AppDelegate.m in Sources */,
-				042A60BE1BF78C720022381C /* BTCChinaMarketAdaptor.m in Sources */,
 				041C8C221BFE1C30000AFE7B /* UIImageView+ScrollViewIndicator.m in Sources */,
 				041C8C251C036533000AFE7B /* Util.m in Sources */,
 				04B859AE1C1734D9009EE56F /* MarketOptionsService.m in Sources */,

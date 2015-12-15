@@ -7,7 +7,6 @@
 //
 
 #import "MarketDataService.h"
-#import "BaseAdaptorProtocol.h"
 #import "MarketModels.h"
 #import "AFNetworking.h"
 
